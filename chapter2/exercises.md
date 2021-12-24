@@ -87,7 +87,7 @@ Now for some exercises. First, determine in your head what the following express
    
    `6`
 
-_Rewrite with where clauses_, see [where.hs](https://github.com/mvaldesdeleon/haskell-book/blob/master/ch02/where.hs)
+
 
 # Chapter Exercises
 
@@ -183,4 +183,3 @@ think will happen if you enter:
 
    `3375`
 
-For remaining exercises, see [where.hs](https://github.com/mvaldesdeleon/haskell-book/blob/master/ch02/where.hs)
