@@ -39,3 +39,13 @@ else EXPRESSION_B
 - all elements of a list must be of the same type
 - list have their own distinct [] syntax
 - the number of values in lists isn't specified
+
+## Definitions
+- a tuple is an ordered grouping of values.  In Haskell, you cannot have a tuple with only one element, but there is a zero tuple also called unit or (). The types of the elements of tuples are allowed to vary
+- a typeclass is a set of operations defined with respect to a polymorphic type
+- data constructors in Haskell provide a means of creating values that inhabit a given type.
+- type constructors in Haskell are not values and can only be used in type signatures
+- data declarations define new datatypes in Haskell.
+- a type alias is a way to refer to a type constructor or type constant by an alternate name, usually to communicate something more specific or for brevity
+- Arity is the number of arguments a function accepts
+- Polymorphism in Haskell means being able to write code in terms of values which may be one of several, or any, type
