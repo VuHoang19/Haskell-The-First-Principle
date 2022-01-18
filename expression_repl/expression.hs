@@ -50,7 +50,7 @@ data Token
   | Val Value
   deriving (Show)
 
-notIsDigit = not . isDigit
+-- notIsDigit = not . isDigit
 
 lexer :: String -> [Token]
 lexer [] = []
