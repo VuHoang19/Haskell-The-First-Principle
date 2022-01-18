@@ -1,6 +1,7 @@
 ## What are typeclasses?
-- a typeclass defines a set of functions and/or values
+- a typeclass defines a set of functions and/or values that can have different implementations depending on the type of data they are given.
 - types have instances of that type class
+- type are how you describe the data your program will work with
 - the instances specify the way that type uses the functions of the typeclass
 
 ## Chapter Definitions

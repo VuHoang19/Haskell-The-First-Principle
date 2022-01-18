@@ -1,0 +1,13 @@
+- type constructors are used only at the type level, in type signatures and typeclass declaration and instances
+- types are static and resolve at compile time
+- data constructors construct the values at term level, values you can interact with at runtime.
+
+- a type can be thought of as an enumeration of constructors that have zero or more arguments
+- "sum" is alternation (A | B, meaning A or B but not both)
+- "product" is combination (A B, meaning A and B together)
+- Data constructors which take no arguments are also called nullary
+- Data constructors that take one argument are called unary
+- Data constructors that take more than one argument are called products
+- The cardinality of a datatype is the number of possible values it defines
+- A newtype cannot be a product type, sum type, or contain nullary constructor
+- 

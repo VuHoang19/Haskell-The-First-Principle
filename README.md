@@ -22,3 +22,7 @@
 - Some exercises, particularly in the earlier chapters, may seem very contrived
 - Another benefit to writing code in a source file and then loading it into the REPL is that you can write comments about the process you went through in solving a problem
 - Sometimes we intentionally underspecify function definitions
+
+
+tai sao no noi cau do
+nói câu đó từ đâu
