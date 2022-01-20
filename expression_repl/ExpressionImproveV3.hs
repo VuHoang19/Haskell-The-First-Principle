@@ -6,9 +6,6 @@ import System.IO
 
 import Data.Scientific
 import Text.ParserCombinators.ReadP
-import Text.Parsec.Expr (Operator)
-import GHC.Integer (Integer)
-import GHC.Show (Show)
 import Data.Either
 
 -- Backus Normal Form
