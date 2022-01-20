@@ -64,7 +64,7 @@ runParser :: ReadP a -> String -> Either ExpError a
 runParser p s =
   case readP_to_S p s of
     [(x, [])] -> Right x
-    _ -> Left $ ParseError "Parse error!"
+    _ -> Left $ ParseError "Can't parse this expression!"
 
 eval :: Expr -> Either ExpError Value
 eval expr =
