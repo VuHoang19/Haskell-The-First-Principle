@@ -16,9 +16,10 @@ import GHC.Integer (Integer)
 -- <op>                                 ::= + | - | * | / | ^
 -- <var>                                ::= <character> | <var><character>
 -- <expr>                               ::= <expr> <op> <expr>
---                                                      |               (<expr> <op> <expr>)
---                                                      |               <var>
---                                                      |               <integer>
+--                                      |   (<expr> <op> <expr>)
+--                                      |   - <expr>
+--                                      |   <var>
+--                                      |   <integer>
 
 type Value = Scientific
 type VName = String
