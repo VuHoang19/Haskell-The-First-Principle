@@ -8,6 +8,7 @@ import System.IO
 import Data.Scientific
 import Text.ParserCombinators.ReadP
 import Text.Parsec.Expr (Operator)
+import GHC.Integer (Integer)
 
 -- Backus Normal Form
 --
@@ -28,17 +29,14 @@ data Expr
   | EVar VName
   | ENeg Expr
   | EBin (Scientific -> Scientific -> Scientific) Expr Expr
-  deriving (Show)
+  | EPow (Scientific -> Integer -> Scientific) Expr Expr
+  -- deriving (Show)
 
 number = skipSpaces *> (ENumber . read <$> munch1 isDigit)
 var = skipSpaces *> (EVar <$> munch1 isAlpha)
-binop = skipSpaces 
-          *> (EBin (+) <$ char '+' 
-          <|> EBin (-) <$ char '-' 
-          <|> EBin (*) <$ char '*' 
-          <|> EBin (/) <$ char '/' 
-          )
-expop = skipSpaces *> (EBin <$ char '^')
+addop = skipSpaces *> (EBin (+) <$ char '+' <|> EBin (-) <$ char '-')
+mulop = skipSpaces *> (EBin (*) <$ char '*' <|> EBin (/) <$ char '/')
+expop = skipSpaces *> (EPow (^) <$ char '^')
 neg p = skipSpaces *> (ENeg <$> (char '-' *> p))
 assignpop = skipSpaces *> (Map <$ char '=')
 parens = between (skipSpaces *> char '(') (skipSpaces *> char ')')
@@ -65,15 +63,15 @@ eval expr =
     ENumber val -> Just val
     EBin op l r -> 
       case op of 
-        (^) -> 
-          if fromJust $ isInteger <$> eval r
-          then (^) <$> eval l <*> (round <$> eval r)
-          else Nothing
         (/) -> 
           case eval r of
             Just 0 -> Nothing
             _ -> (/) <$> eval l <*> eval r
         _ -> op <$> eval l <*> eval r
+    EPow op l r ->
+      if fromJust $ isInteger <$> eval r
+      then op <$> eval l <*> (round <$> eval r)
+      else Nothing
     ENeg ex -> (-) <$> Just 0 <*> eval ex
     EVar var -> lookup var variables
     -- _ -> Nothing
