@@ -16,8 +16,8 @@ import Data.Either
 -- <integer>            ::= <digit> | <integer><digit>
 -- <op>                                 ::= + | - | * | / | ^
 -- <var>                                ::= <character> | <var><character>
--- <expr>                               ::= <expr> <op> <expr>
---                                      |   (<expr> <op> <expr>)
+-- <expr>                               ::= <op> <expr> <expr>
+--                                      |   (<op> <expr> <expr>)
 --                                      |   - <expr>
 --                                      |   <var>
 --                                      |   <integer>
