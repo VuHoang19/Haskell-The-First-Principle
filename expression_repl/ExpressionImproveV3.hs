@@ -31,16 +31,21 @@ data Expr
   | EBin Op Expr Expr
   deriving (Show)
 
-divInt :: Value -> Value -> Value
-divInt a b = floor (fromIntegral a / fromIntegral b)
 
-mapOp :: Op -> (Value -> Value -> Value)
-mapOp Div = divInt
-mapOp Pow = (^)
-mapOp Sub = (-)
-mapOp Add = (+)
-mapOp Mul = (*)
+mapOp :: Op -> (Value -> Value -> Either ExpError Value)
+mapOp op = case op of
+  Add -> safe (+)
+  Sub -> safe (-)
+  Mul -> safe (*)
+  Div -> divide
+  where 
+    safe :: (a -> b -> c) -> (a -> b -> Either e c)
+    safe f x y = Right $ f x y
 
+    divide :: Value -> Value -> Either ExpError Value
+    divide _ 0 = Left $ EvalError "Division by zero!"
+    divide x y = Right $ x `div` y
+    
 number = skipSpaces *> (ENumber . read <$> munch1 isDigit)
 var = skipSpaces *> (EVar <$> munch1 isAlpha)
 addop = skipSpaces *> (EBin Add <$ char '+' <|> EBin Sub <$ char '-')
@@ -70,13 +75,7 @@ eval :: Expr -> Either ExpError Value
 eval expr =
   case expr of
     ENumber val -> Right val
-    EBin op l r -> 
-      case op of
-        Div -> 
-          case eval r of
-            Right 0 -> Left $ EvalError "Division by zero!"
-            _ -> divInt <$> eval l <*> eval r
-        _ -> mapOp op <$> eval l <*> eval r
+    EBin op l r -> join $ mapOp op <$> eval l <*> eval r
     ENeg ex -> (-) <$> Right 0 <*> eval ex
     EVar var -> 
       case lookup var variables of 
